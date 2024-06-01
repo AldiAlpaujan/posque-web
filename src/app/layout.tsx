@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { publicSans } from "@/core/utils/font";
+import ThemeCostumization from "@/core/themes";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +14,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </head>
+      <body className={`${publicSans.variable}`} >
+        <ThemeCostumization>
+          {children}
+        </ThemeCostumization>
+      </body>
     </html>
   );
 }
