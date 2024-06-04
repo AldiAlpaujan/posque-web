@@ -5,7 +5,6 @@ import { BAD_REQUEST, SERVER_ERROR } from '@/core/utils/api-response';
 import { ResponseError } from './response-error';
 
 export class HandleError{
-
   static handle(error: any): NextResponse {
     if(error instanceof yup.ValidationError){
       return BAD_REQUEST({
@@ -15,11 +14,11 @@ export class HandleError{
     } else if(error instanceof ResponseError) {
       return BAD_REQUEST({
         code: error.status,
+        errorDetail: "bad_message",
         message: error.message,
       });
     }else {
       return SERVER_ERROR(error.message);
     }
   }
-  
 }

@@ -1,9 +1,10 @@
 import { db } from "@/core/lib/firebase/config";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 import { CreateUserRequest, UserResponse } from "../model/user-model";
 import { Validation } from "../validation/validation";
 import { UserValidation } from "../validation/user-validation";
+import { ResponseError } from "../error/response-error";
 
 export class UserService{
   static async login() {
@@ -13,6 +14,16 @@ export class UserService{
   static async register(payload: CreateUserRequest): Promise<UserResponse> {
     const registerRequest = await Validation.validate(UserValidation.REGISTER, payload);
     
+    const q = query(
+      collection(db, 'users'),
+      where('email', '==', registerRequest.email),
+    );
+    const users = (await getDocs(q)).docs;
+
+    if(users.length > 0){
+      throw new ResponseError(400, 'Email is already registered');
+    }
+
     await addDoc(collection(db,'users'), registerRequest);
     
     return {
