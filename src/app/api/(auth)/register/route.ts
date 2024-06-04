@@ -1,39 +1,22 @@
+import { NextRequest } from 'next/server';
+
+import { CreateUserRequest } from '@/core/api/model/user-model';
+import { UserService } from '@/core/api/services/user-service';
 import { formDataToJson } from '@/core/utils/function';
-import { NextRequest, NextResponse } from 'next/server';
-import * as yup from 'yup';
+import { OK } from '@/core/utils/api-response';
+import { HandleError } from '@/core/api/error/handle-error';
 
 export async function POST(request: NextRequest) {
-
-  const registerSchema = yup.object().shape({
-    firstName: yup.string().max(255).required('firstName is required'),
-    email: yup.string().email('Must a valid email').required('email is required'),
-    password: yup.string().required('password is required')
-  });
-
   try {
-    const formData = await request.formData();
-    const jsonData = formDataToJson(formData);
-
-    await registerSchema.validate(jsonData, {abortEarly: false});
+    const req = formDataToJson(await request.formData()) as CreateUserRequest;    
+    const res = await UserService.register(req);
     
-    return NextResponse.json({
-      status: 200,
-      message: "Berhasil"
+    return OK({
+      message: "Register successfully",
+      data: res,
     });
-  } catch (err) {
-    if(err instanceof yup.ValidationError){
-      return NextResponse.json({
-        errors: err.errors,
-      }, {
-        status: 400,
-      });
-    }
 
-    return NextResponse.json({
-      message: "Internal Server Error",
-      error: err,
-    }, {
-      status: 400,
-    });
+  } catch (err) {
+    return HandleError.handle(err)
   }
 }
