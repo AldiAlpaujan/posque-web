@@ -39,7 +39,6 @@ const FormRegister = (props: FormRegisterProps) => {
 
   const validationSchema = yup.object().shape({
     firstname: yup.string().required('First name is required').max(255),
-    lastname: yup.string().required('Last name is required').max(255),
     email: yup.string().required('Email is required').max(255).email('Must be a valid email'),
     password: yup.string().required('Password is required'),
   })
@@ -89,12 +88,10 @@ const FormRegister = (props: FormRegisterProps) => {
           id='lastname-login'
           name="lastname"
           type="text"
-          label="Last Name*"
+          label="Last Name"
           placeholder="Enter your last name"
           value={formik.values.lastname}
           onChange={handleOnChange}
-          onBlur={formik.handleBlur}
-          helperText={formik.touched.lastname && formik.errors.lastname}
         />
       </Stack>
 

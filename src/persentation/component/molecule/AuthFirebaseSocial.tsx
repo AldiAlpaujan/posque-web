@@ -7,17 +7,10 @@ import Stack from "@mui/material/Stack";
 
 // Assets
 import Google from '@/assets/images/icons/google.svg';
-import Facebook from '@/assets/images/icons/facebook.svg';
-import Twitter from '@/assets/images/icons/twitter.svg';
 
 const AuthFirebaseSocial = () => {
 
   const onGoogleClick = () => { }
-
-  const onTwitterClick = () => { }
-
-  const onFacebookClick = () => { }
-
 
   return (
     <Stack direction={'row'} justifyContent={'space-between'} spacing={'14px'}>
@@ -25,16 +18,6 @@ const AuthFirebaseSocial = () => {
         iconSrc={Google}
         label="Google"
         onClick={onGoogleClick}
-      />
-      <SocialAuthCard
-        iconSrc={Twitter}
-        label="Twitter"
-        onClick={onTwitterClick}
-      />
-      <SocialAuthCard
-        iconSrc={Facebook}
-        label="Facebook"
-        onClick={onFacebookClick}
       />
     </Stack>
   );
@@ -52,6 +35,12 @@ const SocialAuthCard = (props: {
       color="secondary"
       startIcon={<Image priority src={props.iconSrc} alt={props.label} />}
       onClick={props.onClick}
+      sx={{
+        fontSize: '14px',
+        fontWeight: '500',
+        py: '9px',
+        mb: '24px',
+      }}
     >
       {props.label}
     </Button>
