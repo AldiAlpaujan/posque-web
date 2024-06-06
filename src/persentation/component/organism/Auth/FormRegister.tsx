@@ -31,7 +31,7 @@ export interface FormRegisterModel {
 
 interface FormRegisterProps {
   isLoading: boolean;
-  onSubmit: (v: FormRegisterModel) => void;
+  onSubmit: (v: FormRegisterModel, reset: () => void) => void;
 }
 
 const FormRegister = (props: FormRegisterProps) => {
@@ -41,7 +41,12 @@ const FormRegister = (props: FormRegisterProps) => {
     firstname: yup.string().required('First name is required').max(255),
     email: yup.string().required('Email is required').max(255).email('Must be a valid email'),
     password: yup.string().required('Password is required'),
-  })
+  });
+
+  const resetForm = () => {
+    formik.resetForm();
+    setPwLevel(getStrengthPassword(''));
+  }
 
   const formik = useFormik<FormRegisterModel>({
     initialValues: {
@@ -52,7 +57,9 @@ const FormRegister = (props: FormRegisterProps) => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: props.onSubmit,
+    onSubmit: (v) => {
+      props.onSubmit(v, resetForm);
+    },
   });
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +69,9 @@ const FormRegister = (props: FormRegisterProps) => {
     if (target.name == 'password') {
       setPwLevel(getStrengthPassword(event.target.value));
     }
-  }
+  };
+
+
 
   return (
     <Box

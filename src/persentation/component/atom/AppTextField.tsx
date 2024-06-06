@@ -35,6 +35,7 @@ const AppTextField = (props: AppTextFieldProps) => {
     type,
     helperText,
     sx,
+    value,
     onChange,
     onBlur,
   } = props;
@@ -64,6 +65,7 @@ const AppTextField = (props: AppTextFieldProps) => {
         type={type === 'password' ? pwType : type}
         sx={{ ...props.textFieldStyle }}
         FormHelperTextProps={{ sx: { mx: '3px', mt: '6px' } }}
+        value={value}
         error={helperText != null}
         helperText={helperText}
         onChange={onChange}
