@@ -17,6 +17,6 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (err) {
-    return HandleError.handle(err)
+    return HandleError.handle(err);
   }
 }
