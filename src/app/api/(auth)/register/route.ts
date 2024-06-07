@@ -1,12 +1,12 @@
 import { NextRequest } from 'next/server';
-
 import { CreateUserRequest } from '@/core/api/model/user-model';
 import { UserService } from '@/core/api/services/user-service';
 import { formDataToJson } from '@/core/utils/function';
 import { OK } from '@/core/utils/api-response';
-import { HandleError } from '@/core/api/error/handle-error';
+import { error_middleware } from '@/middleware/error_middleware';
 
-export async function POST(request: NextRequest) {
+
+async function _POST(request: NextRequest) {
   try {
     const req = formDataToJson(await request.formData()) as CreateUserRequest;    
     const res = await UserService.register(req);
@@ -15,8 +15,9 @@ export async function POST(request: NextRequest) {
       message: "Register successfully",
       data: res,
     });
-
   } catch (err) {
-    return HandleError.handle(err);
+    throw err;
   }
 }
+
+export const { POST } = error_middleware(_POST) as any;
