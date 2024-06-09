@@ -3,7 +3,7 @@ import { CreateUserRequest } from '@/core/api/model/user-model';
 import { UserService } from '@/core/api/services/user-service';
 import { formDataToJson } from '@/core/utils/function';
 import { OK } from '@/core/utils/api-response';
-import { error_middleware } from '@/middleware/error_middleware';
+import { error_middleware } from '@/middleware/error-middleware';
 
 async function _POST(request: NextRequest) {
   try {
