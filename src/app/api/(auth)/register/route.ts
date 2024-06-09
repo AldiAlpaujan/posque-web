@@ -5,7 +5,6 @@ import { formDataToJson } from '@/core/utils/function';
 import { OK } from '@/core/utils/api-response';
 import { error_middleware } from '@/middleware/error_middleware';
 
-
 async function _POST(request: NextRequest) {
   try {
     const req = formDataToJson(await request.formData()) as CreateUserRequest;    

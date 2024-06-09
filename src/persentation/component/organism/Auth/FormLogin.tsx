@@ -28,13 +28,13 @@ export interface FormLoginModel {
 
 interface FormLoginProps {
   isLoading: boolean;
-  onSubmit: (v: FormLoginModel) => void;
+  onSubmit: (v: FormLoginModel, reset: () => void) => void;
 }
 
 const FormLogin = (props: FormLoginProps) => {
   const validationSchema = yup.object().shape({
     email: yup.string().required('Email is required').max(255).email('Must be a valid email'),
-    password: yup.string().required('Password is required').min(5, 'Password must be more than 5 letters'),
+    password: yup.string().required('Password is required'),
   });
 
   const formik = useFormik<FormLoginModel>({
@@ -43,7 +43,9 @@ const FormLogin = (props: FormLoginProps) => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: props.onSubmit,
+    onSubmit: (v) => {
+      props.onSubmit(v, formik.resetForm);
+    },
   });
 
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>) => {
