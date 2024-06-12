@@ -11,13 +11,24 @@ import Typography from "./typography";
 import CustomShadows from "./shadow";
 import ComponentsOverrides from "./overrides";
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    customShadows?: any,
+  }
+  interface ThemeOptions {
+    customShadows?: any,
+  }
+}
+
+
+
 const ThemeCostumization = (props: { children: ReactNode }) => {
   const theme = Palette('light');
 
   const themeTypography = Typography(publicSans.style.fontFamily);
   const themeShadow = useMemo(() => CustomShadows(theme), [theme]);
 
-  const themeOptions = useMemo(
+  const themeOptions: ThemeOptions = useMemo(
     () => ({
       breakpoints: {
         values: {
@@ -43,7 +54,7 @@ const ThemeCostumization = (props: { children: ReactNode }) => {
     [theme, themeTypography, themeShadow]
   );
 
-  const themes = createTheme(themeOptions as ThemeOptions);
+  const themes = createTheme(themeOptions);
   themes.components = ComponentsOverrides(themes);
 
   return (

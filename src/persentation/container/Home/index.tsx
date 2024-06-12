@@ -1,6 +1,8 @@
 const HomeView = () => {
   return (
-    <main></main>
+    <main>
+      home view
+    </main>
   );
 }
 

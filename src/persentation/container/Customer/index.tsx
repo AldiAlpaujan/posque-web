@@ -1,8 +1,6 @@
 const CustomerView = () => {
   return (
-    <main style={{
-      height: '100vh'
-    }}>
+    <main>
       Customer Page
     </main>
   );
