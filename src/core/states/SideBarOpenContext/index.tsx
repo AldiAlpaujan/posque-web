@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
 
 interface ProviderValue {
   open: boolean,
@@ -13,7 +12,7 @@ const SideBarOpenContext = createContext<ProviderValue | null>(null);
 const SideBarOpenContextProvider = (props: { children: ReactNode }) => {
   const theme = useTheme();
   const [open, _setOpen] = useState<boolean>(false);
-  const [width, setWidth] = useState<number>(0);
+  const [width, setWidth] = useState<number>(250);
 
   const setOpen = (value: boolean, withSetWidth: boolean = true) => {
     if (withSetWidth) {

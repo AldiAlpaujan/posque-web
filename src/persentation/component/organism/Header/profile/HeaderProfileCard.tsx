@@ -20,6 +20,7 @@ import { EditOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons";
 // third party
 import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "@mui/material/styles";
+import { useRouter } from "next/navigation";
 
 const HeaderProfileCard = () => {
   return (
@@ -54,21 +55,20 @@ const Header = () => {
 }
 
 const Menu = () => {
-  const theme = useTheme();
   const [activeMenu, setActiveMenu] = useState<number | undefined>();
-
+  const { push } = useRouter();
   const menus = [
     {
       id: 1,
       icon: <EditOutlined style={{ fontSize: '18px' }} />,
       label: "Edit Profile",
-      route: "/app/dashboard",
+      route: "/app/profile",
     },
     {
       id: 2,
       icon: <UserOutlined style={{ fontSize: '18px' }} />,
       label: "View Profile",
-      route: "/app/dashboard",
+      route: "/app/profile",
     },
     {
       id: 3,
@@ -77,10 +77,12 @@ const Menu = () => {
     },
   ];
 
-  const handleOnClick = (id: number) => {
+  const handleOnClick = (id: number, route: string | undefined) => {
     setActiveMenu(id);
     if (id === 3) {
       signOut();
+    } else {
+      push(route!)
     }
   }
 
@@ -92,7 +94,14 @@ const Menu = () => {
         const bgColor = isActive ? 'primary.lighter' : null;
         return (
           <ListItem key={item.id} disablePadding>
-            <ListItemButton onClick={() => handleOnClick(item.id)} sx={{ bgcolor: bgColor, py: '8px', display: 'flex', alignItems: "center" }}>
+            <ListItemButton
+              onClick={() => handleOnClick(item.id, item.route)}
+              sx={{
+                bgcolor: bgColor,
+                py: '8px',
+                display: 'flex',
+                alignItems: "center"
+              }}>
               <ListItemIcon sx={{ height: "18px", width: "18px", mr: '8px', color: color }}>
                 {item.icon}
               </ListItemIcon>

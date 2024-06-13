@@ -20,8 +20,6 @@ declare module '@mui/material/styles' {
   }
 }
 
-
-
 const ThemeCostumization = (props: { children: ReactNode }) => {
   const theme = Palette('light');
 
@@ -33,10 +31,11 @@ const ThemeCostumization = (props: { children: ReactNode }) => {
       breakpoints: {
         values: {
           xs: 0,
-          sm: 768,
-          md: 1024,
-          lg: 1266,
-          xl: 1536
+          sm: 640,
+          md: 768,
+          lg: 1024,
+          xl: 1280,
+          "2xl": 1536,
         }
       },
       direction: 'ltr',
