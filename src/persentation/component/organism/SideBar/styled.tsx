@@ -5,7 +5,7 @@ import { Drawer, DrawerProps } from "@mui/material";
 import styled from "@mui/material/styles/styled";
 
 interface StyledProps extends DrawerProps {
-  width: number,
+  width: number | string,
 }
 
 const DrawerStyled = styled(Drawer)<StyledProps>(({ theme, width }) => ({

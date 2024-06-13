@@ -3,12 +3,13 @@ import AppBar, { AppBarProps } from "@mui/material/AppBar/AppBar";
 import Toolbar, { ToolbarProps } from "@mui/material/Toolbar";
 
 interface AppBarStyledProps extends AppBarProps {
-  theme: Theme,
+  theme: Theme;
 }
 
 interface ToolbarStyledProps extends ToolbarProps {
-  theme: Theme,
-  ml: number
+  theme: Theme;
+  ml: number;
+  open: boolean;
 }
 
 const AppBarStyled = styled(AppBar)<AppBarStyledProps>(({ theme }) => ({

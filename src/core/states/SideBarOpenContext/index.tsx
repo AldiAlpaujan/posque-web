@@ -1,46 +1,37 @@
-import { useTheme } from "@mui/material";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { useTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 
 interface ProviderValue {
   open: boolean,
   width: number,
-  setOpen: (value: boolean) => void,
+  setOpen: (value: boolean, withSetWidth?: boolean) => void,
   setWidth: (value: number) => void,
 }
 
 const SideBarOpenContext = createContext<ProviderValue | null>(null);
 const SideBarOpenContextProvider = (props: { children: ReactNode }) => {
   const theme = useTheme();
-  const [open, setOpen] = useState<boolean>(true);
-  const [width, setWidth] = useState<number>(250);
+  const [open, _setOpen] = useState<boolean>(false);
+  const [width, setWidth] = useState<number>(0);
 
-  const getWidth = (): number => {
-    const bp = theme.breakpoints.values;
-    const screenWidth = window.screen.width;
-    let width = 250;
-
-    if (screenWidth >= bp.xs) {
-      width = screenWidth;
-    } else if (screenWidth >= bp.sm) {
-      width = screenWidth;
-    } else if (screenWidth >= bp.md) {
-      width = 250;
-    } else if (screenWidth >= bp.lg) {
-      width = 250;
-    } else if (screenWidth >= bp.xl) {
-      width = 300;
-    }
-
-    return width;
-  }
-
-  useEffect(() => {
-    if (open) {
-      setWidth(250);
+  const setOpen = (value: boolean, withSetWidth: boolean = true) => {
+    if (withSetWidth) {
+      if (!value) {
+        setWidth(0);
+        setTimeout(() => {
+          _setOpen(false);
+        }, theme.transitions.duration.leavingScreen);
+      } else {
+        _setOpen(true);
+        setTimeout(() => {
+          setWidth(250);
+        }, 10);
+      }
     } else {
-      setWidth(0);
+      _setOpen(value);
     }
-  }, [open]);
+  }
 
   return (
     <SideBarOpenContext.Provider value={{ open, width, setOpen, setWidth }}>
