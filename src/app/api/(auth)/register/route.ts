@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
-import { CreateUserRequest } from '@/core/api/model/user-model';
-import { UserService } from '@/core/api/services/user-service';
+import { CreateUserRequest } from '@/api/model/user-model';
+import { UserService } from '@/api/services/user-service';
 import { formDataToJson } from '@/core/utils/function';
 import { OK } from '@/core/utils/api-response';
 import { error_middleware } from '@/middleware/error-middleware';

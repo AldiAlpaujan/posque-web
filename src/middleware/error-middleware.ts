@@ -1,4 +1,4 @@
-import { HandleError } from '@/core/api/error/handle-error';
+import { HandleError } from '@/api/error/handle-error';
 import { NextRequest, NextResponse } from 'next/server';
 
 type methodType = (...param:any) => Promise<NextResponse<any>>;

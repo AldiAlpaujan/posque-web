@@ -1,4 +1,4 @@
-import { UserService } from "@/core/api/services/user-service";
+import { UserService } from "@/api/services/user-service";
 import { SessionUserType } from "@/core/types/session-user-type";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
