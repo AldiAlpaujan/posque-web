@@ -1,5 +1,7 @@
+"use client"
+
 // next & react
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 // MUI
 import { Box, useMediaQuery, useTheme } from "@mui/material";

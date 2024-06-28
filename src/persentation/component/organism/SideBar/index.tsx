@@ -1,3 +1,4 @@
+"use client"
 /* eslint-disable react-hooks/exhaustive-deps */
 // next & react
 import { useContext, useEffect, useState } from "react";
@@ -63,17 +64,17 @@ const DrawerMenu = () => {
   const groups = arrayGroup.filter((item, index) => arrayGroup.indexOf(item) === index);
 
   const handleOnClick = async (id: number, route: string | null) => {
+    setActiveMenu(id);
     if (route !== null) {
       push(route!);
     } else {
-      setActiveMenu(id);
       await signOut();
     }
   }
 
   useEffect(() => {
     const menu = drawerMenu.find((value) => value.route == pathname);
-    if (menu !== undefined) {
+    if (menu !== undefined && activeMenu !== menu!.id) {
       setActiveMenu(menu!.id);
     }
   }, [pathname]);
